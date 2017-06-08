@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -21,6 +22,8 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class Controller {
+    PseudoClass pastDeadline = PseudoClass.getPseudoClass("pastDeadline");
+    PseudoClass isApproaching = PseudoClass.getPseudoClass("isApproaching");
     @FXML
     ListView<ToDoItem> ToDoItemList;
     ObservableList<ToDoItem> allItems = FXCollections.observableArrayList();
@@ -49,8 +52,28 @@ public class Controller {
                 LocalDate.of(2017, Month.JUNE, 15)));
         allItems.add(new ToDoItem("Create app", "Finish making the TodoList App",
                 LocalDate.of(2017, Month.OCTOBER, 5)));
+        allItems.add(new ToDoItem("Take vacation", "Plan and book ticket to Kerala",
+                LocalDate.of(2017, Month.MARCH, 5)));
+        allItems.add(new ToDoItem("Finish 3 lectures", "Complete three lectures with code submissions.",
+                LocalDate.of(2017, Month.JUNE, 9)));
         ToDoItemList.setItems(allItems.sorted(Comparator.comparing(ToDoItem::getDeadline)));
         ToDoItemList.getSelectionModel().selectFirst();
+
+        ToDoItemList.setCellFactory( lv-> new ListCell<ToDoItem>(){
+           @Override
+           public void updateItem(ToDoItem item, boolean empty){
+                super.updateItem(item,empty);
+                if(empty){
+                    setText(null);
+                    pseudoClassStateChanged(pastDeadline,false);
+                }
+                else{
+                    setText(item.toString());
+                    pseudoClassStateChanged(pastDeadline,item!=null&&item.isDeadlinePast());
+                    pseudoClassStateChanged(isApproaching,item!=null&&item.isDeadlineApproching());
+                    }
+                }
+        });
 
     }
     @FXML

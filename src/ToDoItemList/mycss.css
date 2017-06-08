@@ -1,3 +1,7 @@
-.list-cell{
+.list-cell:pastDeadline{
     -fx-text-fill:red;
+}
+
+.list-cell:isApproaching{
+    -fx-text-fill:green;
 }

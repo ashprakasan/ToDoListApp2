@@ -2,6 +2,8 @@ package ToDoItemList.DataModel;
 
 import java.time.LocalDate;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 /**
  * Created by tusharmathur on 07/06/17.
  */
@@ -51,5 +53,12 @@ public class ToDoItem {
         return false;
     }
 
+    public boolean isDeadlineApproching(){
+        if(LocalDate.now().equals(this.getDeadline()))
+            return true;
+        if(LocalDate.now().isBefore(this.getDeadline()) && DAYS.between(LocalDate.now(),this.getDeadline())<=2)
+            return true;
+        return false;
+    }
 
 }

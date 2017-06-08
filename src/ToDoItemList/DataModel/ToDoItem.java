@@ -1,5 +1,6 @@
 package ToDoItemList.DataModel;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -7,7 +8,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 /**
  * Created by tusharmathur on 07/06/17.
  */
-public class ToDoItem {
+public class ToDoItem implements Serializable{
     String shortDescription;
     String details;
     LocalDate deadline;

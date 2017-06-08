@@ -15,18 +15,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 
 public class Controller {
-    PseudoClass pastDeadline = PseudoClass.getPseudoClass("pastDeadline");
-    PseudoClass isApproaching = PseudoClass.getPseudoClass("isApproaching");
+    private PseudoClass pastDeadline = PseudoClass.getPseudoClass("pastDeadline");
+    private PseudoClass isApproaching = PseudoClass.getPseudoClass("isApproaching");
     @FXML
     ListView<ToDoItem> ToDoItemList;
-    ObservableList<ToDoItem> allItems = FXCollections.observableArrayList();
+    static ObservableList<ToDoItem> allItems = FXCollections.observableArrayList();
 
     @FXML
     TextFlow DetailsArea;
@@ -44,18 +43,6 @@ public class Controller {
             }
         });
         ToDoItemList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        allItems.add(new ToDoItem("Wish Birthday", "Send a birthday card to John",
-                LocalDate.of(2017, Month.AUGUST, 25)));
-        allItems.add(new ToDoItem("Order stuff", "Order required groceries on bigbasket",
-                LocalDate.of(2017, Month.JULY, 25)));
-        allItems.add(new ToDoItem("Call Electrician ", "Call electrician from UrbanClap for exhaust fan repair",
-                LocalDate.of(2017, Month.JUNE, 15)));
-        allItems.add(new ToDoItem("Create app", "Finish making the TodoList App",
-                LocalDate.of(2017, Month.OCTOBER, 5)));
-        allItems.add(new ToDoItem("Take vacation", "Plan and book ticket to Kerala",
-                LocalDate.of(2017, Month.MARCH, 5)));
-        allItems.add(new ToDoItem("Finish 3 lectures", "Complete three lectures with code submissions.",
-                LocalDate.of(2017, Month.JUNE, 9)));
         ToDoItemList.setItems(allItems.sorted(Comparator.comparing(ToDoItem::getDeadline)));
         ToDoItemList.getSelectionModel().selectFirst();
 
@@ -117,6 +104,12 @@ public class Controller {
         });
         Optional<ToDoItem> newItem = addItemDialog.showAndWait();
         newItem.ifPresent(Item->allItems.add((ToDoItem)newItem.get()));
+    }
+    static ArrayList<ToDoItem> getAllItems(){
+        return new ArrayList<ToDoItem>(allItems);
+    }
+    static void setAllItems(ObservableList<ToDoItem> allFileItems){
+        allItems= allFileItems;
     }
 }
 

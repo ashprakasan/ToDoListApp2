@@ -8,9 +8,9 @@
             xmlns:fx="http://javafx.com/fxml">
     <top>
         <MenuBar>
-            <Menu text="File">
-            <MenuItem text = "Add Item" onAction="#addItemDialog"/>
-            </Menu>
+        <Menu text="File">
+        <MenuItem text = "Add Item" onAction="#addItemDialog"/>
+        </Menu>
         </MenuBar>
     </top>
     <left>

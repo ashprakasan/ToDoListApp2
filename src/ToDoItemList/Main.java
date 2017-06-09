@@ -29,7 +29,6 @@ public class Main extends Application {
         try {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutput out = new ObjectOutputStream(fos);
-            System.out.println(Controller.getAllItems().getClass());
             out.writeObject(Controller.getAllItems());
             System.out.println("Successfully written to disk.");
         }

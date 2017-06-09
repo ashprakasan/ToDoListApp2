@@ -61,5 +61,7 @@ public class ToDoItem implements Serializable{
             return true;
         return false;
     }
-
+    public void printDeadline(){
+        System.out.println(this.getDeadline());
+    }
 }

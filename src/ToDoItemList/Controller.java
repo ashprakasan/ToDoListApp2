@@ -71,13 +71,12 @@ public class Controller {
                 });
                 deleteItem.setOnAction(event -> {
                     allItems.remove(newCell.super.getItem());
+                    ToDoItemList.getSelectionModel().selectFirst();
                 });
                 editItem.setOnAction(event->{
                     ToDoItem item = newCell.super.getItem();
                     ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
                     showItemDialog(saveButton,item);
-
-
                 });
             }
 
@@ -134,9 +133,7 @@ public class Controller {
             shortDescription.setText(item.getShortDescription());
             details.setText(item.getDetails());
             deadLine.setValue(item.getDeadline());
-            Platform.runLater(()->{
-                shortDescription.selectAll();
-            });
+
         }
         ItemDialog.setResultConverter(ButtonType -> {
             if (ButtonType == button) {
@@ -149,6 +146,7 @@ public class Controller {
         });
         Optional<ToDoItem> newItem = ItemDialog.showAndWait();
         newItem.ifPresent(Item -> allItems.add((ToDoItem) newItem.get()));
+        ToDoItemList.getSelectionModel().select(newItem.get());
     }
     @FXML
     public void addItemDialog() {
